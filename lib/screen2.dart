@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_app/screen4.dart';
 
 class ScreenTwo extends StatelessWidget {
   const ScreenTwo({Key? key}) : super(key: key);
@@ -258,7 +259,14 @@ Padding(
                       fontFamily: 'GentiumBookPlus',
                        fontSize: 24,),
                     ),
-                    onPressed: () {} ,
+                    onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const ScreenFour(),
+                        ));
+                      
+                    } ,
                   ),
                 ),
               ),           ],

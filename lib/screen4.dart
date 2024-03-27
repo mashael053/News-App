@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:last_app/screen1.dart';
 
 class ScreenFour extends StatelessWidget {
   const ScreenFour({super.key});
@@ -19,7 +20,12 @@ class ScreenFour extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              // Add your back button logic here
+                Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (context) => const ScreenOne(),
+                        ));
+              
             },
           ),
           centerTitle: true,

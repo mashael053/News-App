@@ -35,6 +35,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
+  dio: ^5.4.2
 
 dev_dependencies:
   flutter_test:
@@ -72,10 +73,6 @@ flutter:
         - asset: assets/Gentium_Book_Plus/GentiumBookPlus-BoldItalic.ttf
 
   
-        
-        
-
-
 
   #         style: italic
   #   - family: Trajan Pro

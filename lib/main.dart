@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:last_app/screen2.dart';
+import 'package:last_app/screen1.dart';
 
 
 void main() {
@@ -11,15 +11,15 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.`
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return MaterialApp(
-      title: 'UI App',
+      title: 'News App',
       theme: ThemeData(
         colorScheme:
             ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 166, 161, 174)),
         useMaterial3: true,
       ),
-      home: ScreenTwo(),
+      home: ScreenOne(),
     );
   }
 }
