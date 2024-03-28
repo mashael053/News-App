@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:last_app/screen1.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_app/home_screen_cubit.dart';
+import 'package:last_app/home_screen_with_cubit.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.`
   @override
-  Widget build(BuildContext context) { 
-    return MaterialApp(
-      title: 'News App',
-      theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 166, 161, 174)),
-        useMaterial3: true,
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeScreenCubit>(
+          create: (BuildContext context) => HomeScreenCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'News App',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch(
+          cardColor: Color.fromARGB(26, 237, 229, 229),
+          ).copyWith(
+            secondary: const Color.fromARGB(255, 96, 93, 101),
+          ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: ScreenOne(),
       ),
-      home: ScreenOne(),
     );
   }
 }

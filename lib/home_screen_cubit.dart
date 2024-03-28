@@ -1,23 +1,24 @@
 
-// import 'package:flutter/material.dart';
-// import 'package:last_app/data/models/get_news_models_.dart';
-// import 'package:last_app/data/reposirory/get_news_repository.dart';
-// import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:last_app/data/models/get_news_models_.dart';
+import 'package:last_app/data/reposirory/get_news_repository.dart';
+import 'package:meta/meta.dart';
 
-// part 'home_screen_state.dart';
+part 'home_screen_state.dart';
 
-// class HomeScreenCubit extends Cubit<HomeScreenState> {
-//   HomeScreenCubit() : super(HomeScreenInitial());
+class HomeScreenCubit extends Cubit<HomeScreenState> {
+  HomeScreenCubit() : super(HomeScreenInitial());
 
-//   Future<void> getUpdates() async {
-//     emit(HomeScreenLoading());
+  Future<void> getUpdates() async {
+    emit(HomeScreenLoading());
 
-//     GetNewsModels? myNews = await GetNewsRepository().getNews();
+    GetNewsModels? myNews = await GetNewsRepository().getNews();
 
-//     if (myNews != null) {
-//       emit(HomeScreenSuccess(myNews));
-//     } else {
-//       emit(HomeScreenError());
-//     }
-//   }
-// }
+    if (myNews != null) {
+      emit(HomeScreenSuccess(myNews));
+    } else {
+      emit(HomeScreenError());
+    }
+  }
+}
