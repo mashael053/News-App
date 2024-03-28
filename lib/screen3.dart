@@ -17,7 +17,7 @@ class ScreenThree extends StatelessWidget  {
           shape: const CircleBorder(),
           onPressed: () {},
           child: Image.asset(
-            'assets/NavBar/fav_icon.png',
+            'assets/heartIcons.png',
             color: Colors.white,
             height: 25,
             width: 25,
