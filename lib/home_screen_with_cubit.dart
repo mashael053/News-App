@@ -28,253 +28,247 @@ class _ScreenOneState extends State<ScreenOne> {
     return Scaffold(body: SafeArea(
       child: BlocBuilder<HomeScreenCubit, HomeScreenState>(
         builder: (ctx, state) {
-
-          if  (state is HomeScreenLoading){
-                return Center(
-                child: CircularProgressIndicator(),
-              );
-          }
-           else if (state is HomeScreenError) {
-              return Center(
-                child: Text("Error"),
-              );
-            }
-            else if (state is HomeScreenSuccess){
-
-
-
-          return SafeArea(
-            child: Scaffold(
-              body: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              labelText: 'Search',
-                              hintText: 'Dogecoin to the Moon...',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30),
+          print(state);
+          if (state is HomeScreenLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is HomeScreenError) {
+            return Center(
+              child: Text("Error"),
+            );
+          } else if (state is HomeScreenSuccess) {
+            return SafeArea(
+              child: Scaffold(
+                body: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Search',
+                                hintText: 'Dogecoin to the Moon...',
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                suffixIcon: Icon(Icons.search),
                               ),
-                              suffixIcon: Icon(Icons.search),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFF3A44),
-                            shape: BoxShape.circle,
+                          SizedBox(width: 10),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFF3A44),
+                              shape: BoxShape.circle,
+                            ),
+                            padding: EdgeInsets.all(15),
+                            child: Icon(
+                              Icons.notifications,
+                              color: Colors.white,
+                            ),
                           ),
-                          padding: EdgeInsets.all(15),
-                          child: Icon(
-                            Icons.notifications,
-                            color: Colors.white,
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Latest News',
+                            style: TextStyle(
+                              fontFamily: 'GentiumBookPlus',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Latest News',
-                          style: TextStyle(
-                            fontFamily: 'GentiumBookPlus',
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            InkWell(
-                              onTap: () async {
-                                myNews = await GetNewsRepository().getNews();
-                                setState(() {
-                                  myNews = myNews;
-                                });
-                              },
-                              child: Text(
-                                'See all',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  fontFamily: 'GentiumBookPlus',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                          Row(
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  myNews = await GetNewsRepository().getNews();
+                                  setState(() {
+                                    myNews = myNews;
+                                  });
+                                },
+                                child: Text(
+                                  'See all',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontFamily: 'GentiumBookPlus',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.blue,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10),
-                    if (myNews ==
-                        null) // Add condition to show CircularProgressIndicator
-                      Center(
-                        child: CircularProgressIndicator(),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Colors.blue,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    if (myNews != null &&
-                        myNews?.articles !=
-                            null) // Render news only if myNews is not null
+                      SizedBox(height: 10),
+                      if (myNews ==
+                          null) // Add condition to show CircularProgressIndicator
+                        Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      if (myNews != null &&
+                          myNews?.articles !=
+                              null) // Render news only if myNews is not null
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              for (int i = 0; i < myNews!.articles!.length; i++)
+                                CardThree(
+                                  image: myNews!.articles![i].urlToImage ?? "",
+                                  text1: myNews!.articles![i].title ?? "",
+                                  text2: myNews!.articles![i].description ?? "",
+                                  opacity: 0.9,
+                                  fun: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ScreenThree(
+                                                news: myNews!.articles![i]))
+                                        // MaterialPageRoute(builder: (context) => ScreenThree(myNews!.articles![i]))
+                                        );
+                                  },
+                                ),
+                              // SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+                      SizedBox(height: 20),
                       SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            for (int i = 0; i < myNews!.articles!.length; i++)
-                              CardThree(
-                                image: myNews!.articles![i].urlToImage ?? "",
-                                text1: myNews!.articles![i].title ?? "",
-                                text2: myNews!.articles![i].description ?? "",
-                                opacity: 0.9,
-                                fun: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => ScreenThree(
-                                              news: myNews!.articles![i]))
-                                      // MaterialPageRoute(builder: (context) => ScreenThree(myNews!.articles![i]))
-                                      );
-                                },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              WidgetRowList(
+                                text: 'Healthy',
+                                width: 90,
+                                height: 40,
+                                color: Color(0xffFF3A44),
+                                textColor: Color(0xffFFFFFF),
                               ),
-                            // SizedBox(height: 10),
-                          ],
+                              SizedBox(
+                                width: 8,
+                              ),
+                              WidgetRowList(
+                                text: 'Technology',
+                                color: Colors.white12,
+                                width: 80,
+                                height: 40,
+                                textColor: Color(0xff2E0505),
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              WidgetRowList(
+                                text: 'Finance',
+                                width: 80,
+                                height: 40,
+                                textColor: Color(0xff2E0505),
+                                color: Colors.white12,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              WidgetRowList(
+                                text: 'Arts',
+                                width: 80,
+                                height: 40,
+                                textColor: Color(0xff2E0505),
+                                color: Colors.white12,
+                              ),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              WidgetRowList(
+                                text: 'Sports',
+                                width: 80,
+                                height: 40,
+                                color: Colors.white12,
+                                textColor: Color(0xff2E0505),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    SizedBox(height: 20),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            WidgetRowList(
-                              text: 'Healthy',
-                              width: 90,
-                              height: 40,
-                              color: Color(0xffFF3A44),
-                              textColor: Color(0xffFFFFFF),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            WidgetRowList(
-                              text: 'Technology',
-                              color: Colors.white12,
-                              width: 80,
-                              height: 40,
-                              textColor: Color(0xff2E0505),
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            WidgetRowList(
-                              text: 'Finance',
-                              width: 80,
-                              height: 40,
-                              textColor: Color(0xff2E0505),
-                              color: Colors.white12,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            WidgetRowList(
-                              text: 'Arts',
-                              width: 80,
-                              height: 40,
-                              textColor: Color(0xff2E0505),
-                              color: Colors.white12,
-                            ),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            WidgetRowList(
-                              text: 'Sports',
-                              width: 80,
-                              height: 40,
-                              color: Colors.white12,
-                              textColor: Color(0xff2E0505),
-                            ),
-                          ],
+                      SizedBox(height: 8),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => const ScreenTwo(),
+                              ));
+                        },
+                        child: CulomnList(
+                          image: 'assets/image1screenone.jpeg',
+                          text1:
+                              '5 things to know about the conundrum of lupus',
+                          text2: 'Matt Villano',
+                          text3: 'Sunday, 9 May 2021',
+                          height: 40,
+                          width: 139,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (context) => const ScreenTwo(),
-                            ));
-                      },
-                      child: CulomnList(
-                        image: 'assets/image1screenone.jpeg',
-                        text1: '5 things to know about the conundrum of lupus',
-                        text2: 'Matt Villano',
-                        text3: 'Sunday, 9 May 2021',
-                        height: 40,
-                        width: 139,
+                      SizedBox(height: 8),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => const ScreenTwo(),
+                              ));
+                        },
+                        child: CulomnList(
+                          image: 'assets/image2screenone.jpeg',
+                          text1: '4 ways families can ease anxiety together',
+                          text2: 'Zain Korsgaard',
+                          text3: 'Sunday, 9 May 2021',
+                          height: 40,
+                          width: 139,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (context) => const ScreenTwo(),
-                            ));
-                      },
-                      child: CulomnList(
-                        image: 'assets/image2screenone.jpeg',
-                        text1: '4 ways families can ease anxiety together',
-                        text2: 'Zain Korsgaard',
-                        text3: 'Sunday, 9 May 2021',
-                        height: 40,
-                        width: 139,
+                      SizedBox(height: 8),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (context) => ScreenTwo(),
+                              ));
+                        },
+                        child: CulomnList(
+                          image: 'assets/image3screenone.png',
+                          text1:
+                              'What to do if you\'re planning or attending a \nwedding during the pandemic',
+                          text2: 'Matt Villano',
+                          text3: 'Sunday, 9 May 2021',
+                          height: 40,
+                          width: 139,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (context) => ScreenTwo(),
-                            ));
-                      },
-                      child: CulomnList(
-                        image: 'assets/image3screenone.png',
-                        text1:
-                            'What to do if you\'re planning or attending a \nwedding during the pandemic',
-                        text2: 'Matt Villano',
-                        text3: 'Sunday, 9 May 2021',
-                        height: 40,
-                        width: 139,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-
-
+            );
           } // End The Bloc //
-        else {
-              return Center(
-                child: Text("Initial this app state"),
-              );
-            }
+          else {
+            return Center(
+              child: Text("Initial this app state"),
+            );
+          }
         },
       ),
     ));

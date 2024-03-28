@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:last_app/data/models/get_news_models_.dart';
@@ -14,7 +13,7 @@ class HomeScreenCubit extends Cubit<HomeScreenState> {
     emit(HomeScreenLoading());
 
     GetNewsModels? myNews = await GetNewsRepository().getNews();
-
+    print(myNews);
     if (myNews != null) {
       emit(HomeScreenSuccess(myNews));
     } else {

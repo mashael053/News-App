@@ -20,14 +20,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'News App',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-          cardColor: Color.fromARGB(26, 237, 229, 229),
-          ).copyWith(
-            secondary: const Color.fromARGB(255, 96, 93, 101),
-          ),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSwatch(
+        //   cardColor: Color.fromARGB(112, 242, 241, 241),
+        //   ).copyWith(
+        //     secondary: const Color.fromARGB(255, 96, 93, 101),
+        //   ),
+        //   visualDensity: VisualDensity.adaptivePlatformDensity,
+        // ),
         home: ScreenOne(),
       ),
     );

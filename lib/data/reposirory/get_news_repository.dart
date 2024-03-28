@@ -8,7 +8,7 @@ class GetNewsRepository {
 
   Future  <GetNewsModels?> getNews() async {
     Response response;
-    response = await dio.get("https://newsapi.org/v2/everything?q=tesla&from=2024-02-27&sortBy=publishedAt&apiKey=109ff3186b9d41b3b1f03d12ff2cc6a0");
+    response = await dio.get("https://newsapi.org/v2/everything?q=tesla&from=2024-02-28&sortBy=publishedAt&apiKey=109ff3186b9d41b3b1f03d12ff2cc6a0");
 
     GetNewsModels myNews = GetNewsModels.fromJson(response.data);
     print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
